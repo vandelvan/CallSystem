@@ -19,9 +19,11 @@ class AgentList{
 
         ~AgentList();
 
+        bool isValidPos(AgentNode*);
         bool isEmpty();
         void insertAgent(AgentNode*, const Agent&);
         void removeAgent(AgentNode*);
+        void deleteAll();
         AgentNode* getAgentNode(const Agent&);
         AgentNode* getNextAgent(AgentNode*);
         AgentNode* getPrevAgent(AgentNode*);

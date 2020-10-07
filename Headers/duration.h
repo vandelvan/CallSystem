@@ -11,6 +11,7 @@ class Duration{
         int seconds;
 
         bool isValid(const std::string&);
+        int toInt() const;
     public:
         Duration();
         Duration(const Duration&);

@@ -8,11 +8,30 @@ CONFIG += c++11
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += Sources/*.cpp
+SOURCES += Sources/main.cpp \
+    Sources/agent.cpp \
+    Sources/agentList.cpp \
+    Sources/agentNode.cpp \
+    Sources/callSystemMenu.cpp \
+    Sources/customer.cpp \
+    Sources/customerList.cpp \
+    Sources/customerNode.cpp \
+    Sources/date.cpp \
+    Sources/duration.cpp \
+    Sources/mainwindow.cpp
 
-HEADERS += Headers/*.h
+HEADERS += Headers/agent.h \
+    Headers/agentList.h \
+    Headers/agentNode.h \
+    Headers/callSystemMenu.h \
+    Headers/customer.h \
+    Headers/customerList.h \
+    Headers/customerNode.h \
+    Headers/date.h \
+    Headers/duration.h \
+    Headers/mainwindow.h \
 
-FORMS += Forms/*.ui
+FORMS += Forms/mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

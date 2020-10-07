@@ -11,6 +11,8 @@ class Date{
         int year;
 
         bool isValid(std::string);
+        bool isLeap(int);
+        int toInt() const;
     public:
         Date();
         Date(const Date&);

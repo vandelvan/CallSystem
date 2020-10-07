@@ -14,7 +14,7 @@ class Agent{
     public:
         Agent();
         Agent(const Agent&);
-        Agent(const std::string&, const std::string&);
+        Agent(const std::string&, const std::string&, const CustomerList&);
         ~Agent();
 
         std::string getName() const;

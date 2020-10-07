@@ -14,10 +14,12 @@ class CustomerList{
         CustomerList();
         CustomerList(CustomerNode*);
         ~CustomerList();
+        bool isValidPos(CustomerNode*);
         bool isEmpty();
         void insertCustomer(CustomerNode*, const Customer&);
         void removeCustomer(CustomerNode*);
-        CustomerNode* getCustomerNode(CustomerNode*);
+        void deleteAll();
+        CustomerNode* getCustomerNode(const Customer&);
         CustomerNode* getNextCustomer(CustomerNode*);
         CustomerNode* getPrevCustomer(CustomerNode*);
         void setCustomer(const Customer&);

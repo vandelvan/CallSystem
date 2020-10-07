@@ -17,11 +17,9 @@ class CallSystemMenu {
         void start();
         //Funcion para mostrar y administrar el listado de agentes
         void agentControl();
-        //Funcion para mostrar y administrar el listado de agentes
-        void agentControl();
 
     public:
-        CallSystemMenu(AgentList* agentList);
+        CallSystemMenu(AgentList*);
 };
 
 #endif

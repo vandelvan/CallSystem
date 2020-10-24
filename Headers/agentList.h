@@ -24,6 +24,7 @@ class AgentList{
         void insertAgent(AgentNode*, const Agent&);
         void removeAgent(AgentNode*);
         void deleteAll();
+        AgentNode* getAnchor();
         AgentNode* getAgentNode(const Agent&);
         AgentNode* getNextAgent(AgentNode*);
         AgentNode* getPrevAgent(AgentNode*);

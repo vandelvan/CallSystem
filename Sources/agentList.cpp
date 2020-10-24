@@ -25,6 +25,11 @@ bool AgentList::isEmpty()
     return agentNode == nullptr;
 }
 
+AgentNode* AgentList::getAnchor()
+{
+    return this->agentNode;
+}
+
 void AgentList::insertAgent(AgentNode * p, const Agent & a)
 {
     if(!isValidPos(p))

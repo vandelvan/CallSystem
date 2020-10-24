@@ -14,38 +14,19 @@ Duration::Duration(const Duration& d) : hour(d.hour), minutes(d.minutes), second
 
 Duration::Duration(const string& duration)
 {
-    if(this->isValid(duration))
-    {
-        string delimiter = ":";
-        string hr = duration.substr(0, duration.find(delimiter));
-        string min = duration.substr(1, duration.find(delimiter));
-        string sec = duration.substr(2, duration.find(delimiter));
-        this->hour = stoi(hr);
-        this->minutes = stoi(min);
-        this->seconds = stoi(sec);
-    }
+    string durationAux = duration;
+    string delimiter = ":";
+    string hr = durationAux.substr(0, durationAux.find(delimiter));
+    durationAux.erase(0, 3);
+    string min = durationAux.substr(0, durationAux.find(delimiter));
+    durationAux.erase(0, 3);
+    string sec = durationAux;
+    this->hour = stoi(hr);
+    this->minutes = stoi(min);
+    this->seconds = stoi(sec);
 }
 
 Duration::~Duration(){}
-
-bool Duration::isValid(const string& duration)
-{
-    bool valid;
-    //Expresion regular que valida si el string viene como hr:mi:se
-    valid = regex_match(duration,regex("(\\d\\d\\:\\d\\d\\:\\d\\d)"));
-    //Si coincide con la expresion regular
-    if(valid)
-    {
-        string delimiter = ":";
-        //Separa minuto y segundo del string recibido
-        int minStr = stoi(duration.substr(1, duration.find(delimiter)));
-        int secStr = stoi(duration.substr(2, duration.find(delimiter)));
-        if(minStr > 59 || secStr > 59)
-            valid = false;
-
-    }
-    return valid;
-}
 
 int Duration::getHour() const
 {
@@ -65,9 +46,19 @@ int Duration::getSeconds() const
 string Duration::getAsString() const
 {
     string duration;
-    duration = to_string(this->hour)+":";
-    duration += to_string(this->minutes)+":";
-    duration += to_string(this->seconds);
+    stringstream auxHour;
+    //Agrega 0s a los enteros para hacerlos string
+    auxHour << setw(2) << setfill('0') << this->hour;
+    string hour = auxHour.str();
+    stringstream auxMinutes;
+    auxMinutes << setw(2) << setfill('0') << this->minutes;
+    string minutes = auxMinutes.str();
+    stringstream auxSeconds;
+    auxSeconds << setw(2) << setfill('0') << this->seconds;
+    string seconds = auxSeconds.str();
+    duration = hour+":";
+    duration += minutes+":";
+    duration += seconds;
     return duration;
 }
 

@@ -52,36 +52,36 @@ Customer& Customer::operator=(const Customer & c)
     this->duration = c.duration;
     return *this;
 }
-/*PROBABLEMENTE CAMBIARAN LOS OPERADORES*/
+
 bool Customer::operator==(const Customer & c) const
 {
-    return this->name == c.name;
+    return this->name == c.name && this->date == c.date && this->duration == c.duration;
 }
 
 bool Customer::operator!=(const Customer & c) const
 {
-    return this->name != c.name;
+    return this->name != c.name || this->date != c.date || this->duration != c.duration;
 }
 
 bool Customer::operator<(const Customer & c) const
 {
-    return this->name < c.name;
+    return this->date < c.date;
 }
 
 
 bool Customer::operator<=(const Customer & c) const
 {
-    return this->name <= c.name;
+    return this->date <= c.date;
 }
 
 bool Customer::operator>(const Customer & c) const
 {
-    return this->name > c.name;
+    return this->date > c.date;
 }
 
 bool Customer::operator>=(const Customer & c) const
 {
-    return this->name >= c.name;
+    return this->date >= c.date;
 }
 
 ostream& operator << (ostream& os, const Customer& c)

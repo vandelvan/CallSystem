@@ -25,11 +25,19 @@ bool CustomerList::isEmpty()
     return customerNode == nullptr;
 }
 
+
+CustomerNode* CustomerList::getAnchor()
+{
+    return this->customerNode;
+}
+
 void CustomerList::insertCustomer(CustomerNode * p, const Customer & c)
 {
-    if(!isValidPos(p))
+    if(p != nullptr and !isValidPos(p))
         return;
     CustomerNode* aux(new CustomerNode(c));
+    if(aux == nullptr)
+        return;
     if(p == nullptr){
         aux->setCustomerNode(this->customerNode);
         this->customerNode = aux;
@@ -38,6 +46,20 @@ void CustomerList::insertCustomer(CustomerNode * p, const Customer & c)
         aux->setCustomerNode(p->getNextCustomer());
         p->setCustomerNode(aux);
     }
+}
+
+
+void CustomerList::insertOrdered(const Customer & c)
+{
+    CustomerNode* aux(customerNode);
+    CustomerNode* p(nullptr);
+
+    while(aux != nullptr and c > aux->getCustomer())
+    {
+        p = aux;
+        aux = aux->getNextCustomer();
+    }
+    insertCustomer(p, c);
 }
 
 CustomerNode* CustomerList::getPrevCustomer(CustomerNode * c)
@@ -66,7 +88,7 @@ void CustomerList::removeCustomer(CustomerNode * c)
     delete c;
 }
 
-CustomerNode* CustomerList::getCustomerNode(const Customer & c)
+CustomerNode* CustomerList::getCustomerNode(const Customer& c)
 {
     CustomerNode* aux(this->customerNode);
 

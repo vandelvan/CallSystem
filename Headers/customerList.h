@@ -17,8 +17,10 @@ class CustomerList{
         bool isValidPos(CustomerNode*);
         bool isEmpty();
         void insertCustomer(CustomerNode*, const Customer&);
+        void insertOrdered(const Customer&);
         void removeCustomer(CustomerNode*);
         void deleteAll();
+        CustomerNode* getAnchor();
         CustomerNode* getCustomerNode(const Customer&);
         CustomerNode* getNextCustomer(CustomerNode*);
         CustomerNode* getPrevCustomer(CustomerNode*);

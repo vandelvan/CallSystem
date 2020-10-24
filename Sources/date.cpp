@@ -1,4 +1,3 @@
-#include <regex>
 #include <time.h>
 #include "Headers/date.h"
 
@@ -9,6 +8,8 @@ Date::Date()
     char d[2];
     char m[2];
     char Y[4];
+    char I[2];
+    char M[2];
     time_t rawtime;
     tm* timeinfo;
     time(&rawtime);
@@ -17,97 +18,41 @@ Date::Date()
     strftime(d,80,"%d",timeinfo);
     strftime(m,80,"%m",timeinfo);
     strftime(Y,80,"%Y",timeinfo);
+    strftime(I,80,"%I",timeinfo);
+    strftime(M,80,"%M",timeinfo);
     //Guardados como enteros
-    this->day = stoi(d);
-    this->month = stoi(m);
-    this->year = stoi(Y);
+    this->day = atoi(d);
+    this->month = atoi(m);
+    this->year = atoi(Y);
+    this->hour = atoi(I);
+    this->minutes = atoi(M);
 }
 
-Date::Date(const Date & d) : day(d.day), month(d.month), year(d.year){}
+Date::Date(const Date & d) : day(d.day), month(d.month), year(d.year), hour(d.hour), minutes(d.minutes){}
 
 Date::Date(const string & date)
 {
-    if(this->isValid(date))
-    {
-        string delimiter = "/";
-        string dia = date.substr(0, date.find(delimiter));
-        string mes = date.substr(1, date.find(delimiter));
-        string year = date.substr(2, date.find(delimiter));
-        this->day = stoi(dia);
-        this->month = stoi(mes);
-        this->year = stoi(year);
-    }
+    string dateAux = date;
+    string delimiter = ".";
+    string dia = dateAux.substr(0, dateAux.find(delimiter));
+    dateAux.erase(0, 3);
+    string mes = dateAux.substr(0, dateAux.find(delimiter));
+    dateAux.erase(0, 3);
+    string year = dateAux.substr(0, dateAux.find(delimiter));
+    this->day = stoi(dia);
+    this->month = stoi(mes);
+    this->year = stoi(year);
+    //el restante es el tiempo
+    string time = dateAux.erase(0,5);
+    delimiter = ":";
+    string hr = time.substr(0, time.find(delimiter));
+    time.erase(0, 3);
+    string mn = time;
+    this->hour = stoi(hr);
+    this->minutes = stoi(mn);
 }
 
 Date::~Date(){}
-
-bool Date::isValid(string date)
-{
-    bool valid;
-    //Expresion regular que valida si el string viene como una fecha, con 2 digitos/2 digitos/4 digitos
-    valid = regex_match(date,regex("(\\d\\d\\/\\d\\d\\/\\d\\d\\d\\d)"));
-    //Si coincide con la expresion regular
-    if(valid)
-    {
-        string delimiter = "/";
-        //Separa dia mes y anio del string recibido
-        int dayStr = stoi(date.substr(0, date.find(delimiter)));
-        int monthStr = stoi(date.substr(1, date.find(delimiter)));
-        int yearStr = stoi(date.substr(2, date.find(delimiter)));
-        //Verifica todos los casos posibles para meses y sus dias
-        switch (monthStr)
-        {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if(dayStr <= 0 || dayStr > 31)
-                    valid = false;
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if(dayStr <= 0 || dayStr > 30)
-                    valid = false;
-                break;
-            case 2:
-                if(this->isLeap(yearStr))
-                {
-                    if(dayStr <= 0 || dayStr > 29)
-                        valid = false;
-                }
-                else
-                    if(dayStr <= 0 || dayStr > 28)
-                        valid = false;
-                break;
-            //Si no es ningun mes valido
-            default:
-                valid = false;
-                break;
-        }
-    }
-    return valid;
-}
-
-bool Date::isLeap(int yearStr)
-{
-    if(yearStr % 4 == 0)
-    {
-        if(yearStr % 100 == 0)
-        {
-            if(yearStr % 400 == 0)
-            {
-                //El anio es bisiesto
-                return true;
-            }
-        }
-    }
-    return false;
-}
 
 int Date::getDay() const
 {
@@ -123,13 +68,39 @@ int Date::getYear() const
 {
     return this->year;
 }
+int Date::getHour() const
+{
+    return this->hour;
+}
+int Date::getMinutes() const
+{
+    return this->minutes;
+}
 
 string Date::getAsString() const
 {
     string date;
-    date = to_string(this->day)+"/";
-    date += to_string(this->month)+"/";
-    date += to_string(this->year);
+    stringstream auxDay;
+    stringstream auxMonth;
+    stringstream auxYear;
+    stringstream auxHour;
+    stringstream auxMinute;
+    //se agregan los 0s restantes
+    auxDay << setw(2) << setfill('0') << this->day;
+    string day = auxDay.str();
+    auxMonth << setw(2) << setfill('0') << this->month;
+    string month = auxMonth.str();
+    auxYear << setw(4) << setfill('0') << this->year;
+    string year = auxYear.str();
+    auxHour << setw(2) << setfill('0') << this->hour;
+    string hour = auxHour.str();
+    auxMinute << setw(2) << setfill('0') << this->minutes;
+    string minutes = auxMinute.str();
+    date = day+"/";
+    date += month+"/";
+    date += year+ " ";
+    date += hour+ ":";
+    date += minutes;
     return date;
 }
 
@@ -145,11 +116,19 @@ void Date::setYear(const int& newYear)
 {
     this->year = newYear;
 }
+void Date::setHour(const int& newHour)
+{
+    this->hour = newHour;
+}
+void Date::setMinutes(const int& newMinutes)
+{
+    this->minutes = newMinutes;
+}
 
 //Transforma fecha a entera para comparaciones
 int Date::toInt() const
 {
-    return this->day+this->month+this->year;
+    return this->day+this->month+this->year+this->hour+this->minutes;
 }
 
 Date& Date::operator=(const Date & d)
@@ -157,6 +136,8 @@ Date& Date::operator=(const Date & d)
     this->day = d.day;
     this->month = d.month;
     this->year = d.year;
+    this->hour = d.hour;
+    this->minutes = d.minutes;
     return *this;
 }
 

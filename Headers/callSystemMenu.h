@@ -1,25 +1,39 @@
 #ifndef CALLSYSTEMMENU_H_INCLUDED
 #define CALLSYSTEMMENU_H_INCLUDED
 
-#include <iostream>
-#include <string>
-
+#include <QMainWindow>
 //Headers necesarios:
 #include "agentList.h"
+//GUIs
+#include "newAgent.h"
+#include "customerUi.h"
 
-class CallSystemMenu {
-    private:
-        AgentList* agentList;
+namespace Ui {
+class CallSystemMenu;
+}
 
-        //Funcion para mostrar la pantalla principal
-        void splashScreen();
-        //Funcion para mostrar el inicio de secretaria
-        void start();
-        //Funcion para mostrar y administrar el listado de agentes
-        void agentControl();
+class CallSystemMenu : public QMainWindow
+{
+    Q_OBJECT
 
-    public:
-        CallSystemMenu(AgentList*);
+public:
+    explicit CallSystemMenu(QWidget *parent = nullptr, AgentList *al = new AgentList);
+    ~CallSystemMenu();
+
+private slots:
+    void on_addAgent_clicked();
+
+    void on_pushButton_clicked();
+
+private:
+    Ui::CallSystemMenu *ui;
+    AgentList* agentList;
+    //GUIs
+    NewAgent newAgent;
+    CustomerUi customerUi;
+
+    //Funcion para llenar tabla
+    void fillAgentTable();
 };
 
-#endif
+#endif // CALLSYSTEMMENU_H

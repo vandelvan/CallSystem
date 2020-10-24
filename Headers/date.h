@@ -3,15 +3,17 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <iomanip>
 
 class Date{
     private:
         int day;
         int month;
         int year;
+        int hour;
+        int minutes;
 
-        bool isValid(std::string);
-        bool isLeap(int);
         int toInt() const;
     public:
         Date();
@@ -21,10 +23,14 @@ class Date{
         int getDay() const;
         int getMonth() const;
         int getYear() const;
+        int getHour() const;
+        int getMinutes() const;
         std::string getAsString() const;
         void setDay(const int&);
         void setMonth(const int&);
         void setYear(const int&);
+        void setHour(const int&);
+        void setMinutes(const int&);
 
         Date& operator = (const Date&);
 

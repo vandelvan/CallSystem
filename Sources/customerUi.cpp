@@ -11,11 +11,8 @@ CustomerUi::CustomerUi(QWidget *parent, CustomerList* cl) :
 {
     ui->setupUi(this);
     //Ajusta las columnas
-    ui->customerTable->setColumnWidth(0, this->width()/5);
-    ui->customerTable->setColumnWidth(1, this->width()/5);
-    ui->customerTable->setColumnWidth(2, this->width()/5);
-    ui->customerTable->setColumnWidth(3, this->width()/5);
-    ui->customerTable->setColumnWidth(4, this->width()/5);
+    for(int i = 0; i < 5; i++)
+        ui->customerTable->setColumnWidth(i, this->width()/5);
 }
 
 CustomerUi::~CustomerUi()

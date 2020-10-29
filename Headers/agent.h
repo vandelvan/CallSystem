@@ -5,23 +5,40 @@
 #include <string>
 
 #include "customerList.h"
+#include "duration.h"
 
 class Agent{
     private:
+        int employeeNum;
         std::string name;
         std::string field;
+        int extention;
+        Duration hourStart;
+        Duration hourFinish;
+        Duration extraHours;
         CustomerList customers;
     public:
         Agent();
         Agent(const Agent&);
-        Agent(const std::string&, const std::string&, const CustomerList&);
+        Agent(const int, const std::string&, const std::string&, const int, const Duration, const Duration, const Duration, const CustomerList&);
         ~Agent();
 
+        int getEmployeeNum() const;
         std::string getName() const;
         std::string getField() const;
+        int getExtention() const;
+        Duration getHourStart() const;
+        Duration getHourFinish() const;
+        std::string getHours() const;
+        Duration getExtraHours() const;
         CustomerList getCustomers() const;
+        void setEmployeeNum(const int&);
         void setName(const std::string&);
         void setField(const std::string&);
+        void setExtention(const int&);
+        void setHourStart(const Duration&);
+        void setHourFinish(const Duration&);
+        void setExtraHours(const Duration&);
         void setCustomers(const CustomerList&);
 
         Agent& operator = (const Agent&);

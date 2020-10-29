@@ -4,16 +4,26 @@ using namespace std;
 
 Agent::Agent() {}
 
-Agent::Agent(const Agent& a) : name(a.name), field(a.field), customers(a.customers){}
+Agent::Agent(const Agent& a) : employeeNum(a.employeeNum), name(a.name), field(a.field), extention(a.extention), hourStart(a.hourStart), hourFinish(a.hourFinish), extraHours(a.extraHours), customers(a.customers){}
 
-Agent::Agent(const string& name, const string& field, const CustomerList& customers)
+Agent::Agent(const int employeeNum, const string& name, const string& field, const int extention, const Duration hourStart, const Duration hourFinish, const Duration extraHours, const CustomerList& customers)
 {
+    this->employeeNum = employeeNum;
     this->name = name;
     this->field = field;
+    this->extention = extention;
+    this->hourStart = hourStart;
+    this->hourFinish = hourFinish;
+    this->extraHours = extraHours;
     this->customers = customers;
 }
 
 Agent::~Agent(){}
+
+int Agent::getEmployeeNum() const
+{
+    return this->employeeNum;
+}
 
 string Agent::getName() const
 {
@@ -25,9 +35,39 @@ string Agent::getField() const
     return this->field;
 }
 
+int Agent::getExtention() const
+{
+    return this->extention;
+}
+
+Duration Agent::getHourStart() const
+{
+    return this->hourStart;
+}
+
+Duration Agent::getHourFinish() const
+{
+    return this->hourFinish;
+}
+
+string Agent::getHours() const
+{
+    return this->hourStart.getAsString() + " - " + this->hourFinish.getAsString();
+}
+
+Duration Agent::getExtraHours() const
+{
+    return this->extraHours;
+}
+
 CustomerList Agent::getCustomers() const
 {
     return this->customers;
+}
+
+void Agent::setEmployeeNum(const int & employeeNum)
+{
+    this->employeeNum = employeeNum;
 }
 
 void Agent::setName(const std::string & name)
@@ -40,6 +80,26 @@ void Agent::setField(const string & field)
     this->field = field;
 }
 
+void Agent::setExtention(const int & extention)
+{
+    this->extention = extention;
+}
+
+void Agent::setHourStart(const Duration & hourStart)
+{
+    this->hourStart = hourStart;
+}
+
+void Agent::setHourFinish(const Duration & hourFinish)
+{
+    this->hourFinish = hourFinish;
+}
+
+void Agent::setExtraHours(const Duration & extraHours)
+{
+    this->extraHours = extraHours;
+}
+
 void Agent::setCustomers(const CustomerList & customers)
 {
     this->customers = customers;
@@ -47,56 +107,45 @@ void Agent::setCustomers(const CustomerList & customers)
 
 Agent& Agent::operator=(const Agent & a)
 {
+    this->employeeNum = a.employeeNum;
     this->name = a.name;
     this->field = a.field;
+    this->extention = a.extention;
+    this->hourStart = a.hourStart;
+    this->hourFinish = a.hourFinish;
+    this->extraHours = a.extraHours;
     this->customers = a.customers;
     return *this;
 }
-/*PROBABLEMENTE CAMBIARAN LOS OPERADORES*/
+
+
 bool Agent::operator==(const Agent & a) const
 {
-    return this->name == a.name;
+    return this->employeeNum == a.employeeNum;
 }
 
 bool Agent::operator!=(const Agent & a) const
 {
-    return this->name != a.name;
+    return this->employeeNum != a.employeeNum;
 }
 
 bool Agent::operator<(const Agent & a) const
 {
-    return this->name < a.name;
+    return this->employeeNum < a.employeeNum;
 }
 
 
 bool Agent::operator<=(const Agent & a) const
 {
-    return this->name <= a.name;
+    return this->employeeNum <= a.employeeNum;
 }
 
 bool Agent::operator>(const Agent & a) const
 {
-    return this->name > a.name;
+    return this->employeeNum > a.employeeNum;
 }
 
 bool Agent::operator>=(const Agent & a) const
 {
-    return this->name >= a.name;
-}
-
-ostream& operator << (ostream& os, const Agent& a)
-{
-    os << a.getName() << endl;
-    os << a.getField() << endl;
-    //os << a.getCustomers().;
-    return os;
-}
-
-istream& operator >> (istream& is, Agent& a)
-{
-    getline(is, a.name);
-    is >> a.field;
-    //is >> a.customers;
-
-    return is;
+    return this->employeeNum >= a.employeeNum;
 }

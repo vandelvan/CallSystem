@@ -7,6 +7,9 @@ CallSystemMenu::CallSystemMenu(QWidget *parent, AgentList* al) :
     agentList(al)
 {
     ui->setupUi(this);
+    //Ajusta las columnas
+    for(int i = 0; i < 8; i++)
+        ui->agentTable->setColumnWidth(i, this->width()/8);
 }
 
 CallSystemMenu::~CallSystemMenu()
@@ -25,24 +28,57 @@ void CallSystemMenu::on_addAgent_clicked()
 
 void CallSystemMenu::fillAgentTable()
 {
+    //Limpia la tabla
+    ui->agentTable->setRowCount(0);
+    //si la lista esta vacia no hace nada
     if(agentList->isEmpty())
         return;
-    AgentNode* aux(this->agentList->getAnchor());
-    while(aux != nullptr){
+    AgentNode* aux(this->agentList->getFirst()->getNextAgent());
+    //Recorremos la lista
+    while(aux != this->agentList->getFirst()){
+        //convertimos sus datos a Qstring para ponerlos en la tabla
+        QString employeeNum = QString::number(aux->getAgent().getEmployeeNum());
         QString name = QString::fromStdString(aux->getAgent().getName());
         QString field = QString::fromStdString(aux->getAgent().getField());
-//        QString name = QString::fromStdString(aux->getAgent().getName());
+        QString ext = QString::number(aux->getAgent().getExtention());
+        QString hours = QString::fromStdString(aux->getAgent().getHours());
+        QString extraHours = QString::fromStdString(aux->getAgent().getExtraHours().getAsString());
+        QString see = QString::fromStdString("Ver Clientes");
+        QString del = QString::fromStdString("Eliminar");
+        //Insertamos la fila
         ui->agentTable->insertRow ( ui->agentTable->rowCount() );
+        //inserta el no de empleado
         ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
                                  0,
-                                 new QTableWidgetItem(name));
+                                 new QTableWidgetItem(employeeNum));
+        //inserta el nombre
         ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
                                  1,
+                                 new QTableWidgetItem(name));
+        //inserta la especialidad
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 2,
                                  new QTableWidgetItem(field));
-
-//        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
-//                                 "nombre",
-//                                 new QTableWidgetItem(aux->getAgent().getName()));
+        //inserta la extension
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 3,
+                                 new QTableWidgetItem(ext));
+        //inserta el horario
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 4,
+                                 new QTableWidgetItem(hours));
+        //inserta las horas extra
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 5,
+                                 new QTableWidgetItem(extraHours));
+        //inserta la opcion para ver clientes
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 6,
+                                 new QTableWidgetItem(see));
+        //inserta la opcion eliminar
+        ui->agentTable->setItem   ( ui->agentTable->rowCount()-1,
+                                 7,
+                                 new QTableWidgetItem(del));
     aux = aux->getNextAgent();
     }
 }

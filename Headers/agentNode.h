@@ -7,16 +7,21 @@
 #include "agent.h"
 class AgentNode{
     private:
-        Agent agent;
+        Agent* agent;
         AgentNode* nextAgent;
+        AgentNode* prevAgent;
     public:
         AgentNode();
         AgentNode(const Agent&);
         ~AgentNode();
-        Agent getAgent() const;
+        Agent* getAgentPtr();
+        Agent getAgent();
         AgentNode* getNextAgent();
+        AgentNode* getPrevAgent();
+        void setAgentPtr(Agent*);
         void setAgent(const Agent&);
-        void setAgentNode(AgentNode*);
+        void setNextAgentNode(AgentNode*);
+        void setPrevAgentNode(AgentNode*);
 };
 
 #endif

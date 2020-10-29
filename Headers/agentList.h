@@ -10,26 +10,31 @@
 class AgentList{
     private:
         AgentNode* agentNode;
-        
-        void orderByName();
-        void orderByField();
+
+
+        bool isValidPos(AgentNode*);
+        void copyAll(const AgentList&);
+        void swapPtr(AgentNode*, AgentNode*);
+        void orderByName(AgentNode*, AgentNode*);
+        void orderByField(AgentNode*, AgentNode*);
     public:
         AgentList();
         AgentList(const AgentList&);
 
         ~AgentList();
 
-        bool isValidPos(AgentNode*);
         bool isEmpty();
         void insertAgent(AgentNode*, const Agent&);
         void removeAgent(AgentNode*);
         void deleteAll();
-        AgentNode* getAnchor();
+        AgentNode* getFirst();
+        AgentNode* getLast();
         AgentNode* getAgentNode(const Agent&);
         AgentNode* getNextAgent(AgentNode*);
         AgentNode* getPrevAgent(AgentNode*);
-        void setAgent(const Agent&);
-        void setAgentNode(AgentNode*);
+        Agent retreive(AgentNode*);
+        void orderByName();
+        void orderByField();
         AgentList exportList() const;
         bool importList(const AgentList&);
 

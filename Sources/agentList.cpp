@@ -2,10 +2,21 @@
 
 using namespace std;
 
+AgentList::AgentList() : agentNode(new AgentNode)
+{
+    agentNode->setNextAgentNode(agentNode);
+    agentNode->setPrevAgentNode(agentNode);
+}
+
+AgentList::~AgentList()
+{
+    deleteAll();
+}
+
 bool AgentList::isValidPos(AgentNode * a)
 {
-    AgentNode* aux(agentNode);
-    while (aux != nullptr) {
+    AgentNode* aux(agentNode->getNextAgent());
+    while (aux != agentNode) {
         if(aux == a)
             return true;
         aux = aux->getNextAgent();
@@ -13,36 +24,24 @@ bool AgentList::isValidPos(AgentNode * a)
     return false;
 }
 
-AgentList::AgentList() : agentNode(nullptr) {}
-
-AgentList::~AgentList()
-{
-    deleteAll();
-}
-
 bool AgentList::isEmpty()
 {
-    return agentNode == nullptr;
-}
-
-AgentNode* AgentList::getAnchor()
-{
-    return this->agentNode;
+    return agentNode->getNextAgent() == agentNode;
 }
 
 void AgentList::insertAgent(AgentNode * p, const Agent & a)
 {
-    if(!isValidPos(p))
+    if(p != nullptr and !isValidPos(p))
         return;
-    AgentNode* aux(new AgentNode(a));
     if(p == nullptr){
-        aux->setAgentNode(this->agentNode);
-        this->agentNode = aux;
+        p = this->agentNode;
     }
-    else{
-        aux->setAgentNode(p->getNextAgent());
-        p->setAgentNode(aux);
-    }
+    AgentNode* aux(new AgentNode(a));
+    aux->setPrevAgentNode(p);
+    aux->setNextAgentNode(p->getNextAgent());
+
+    p->getNextAgent()->setPrevAgentNode(aux);
+    p->setNextAgentNode(aux);
 }
 
 AgentNode* AgentList::getPrevAgent(AgentNode * a)
@@ -66,16 +65,16 @@ void AgentList::removeAgent(AgentNode * a)
     if(a == this->agentNode)
         this->agentNode = a->getNextAgent();
     else
-        this->getPrevAgent(a)->setAgentNode(a->getNextAgent());
+        this->getPrevAgent(a)->setNextAgentNode(a->getNextAgent());
 
     delete a;
 }
 
 AgentNode* AgentList::getAgentNode(const Agent & a)
 {
-    AgentNode* aux(this->agentNode);
+    AgentNode* aux(this->agentNode->getNextAgent());
 
-    while(aux != nullptr && aux->getAgent() != a)
+    while(aux != this->agentNode && aux->getAgent() != a)
         aux = aux->getNextAgent();
 
     return aux;
@@ -83,12 +82,17 @@ AgentNode* AgentList::getAgentNode(const Agent & a)
 
 void AgentList::deleteAll()
 {
-    AgentNode* aux(this->agentNode);
+    AgentNode* aux(this->agentNode->getNextAgent());
 
-    while(aux != nullptr){
+    while(aux != this->agentNode){
         this->removeAgent(aux);
         aux = aux->getNextAgent();
     }
+}
+
+AgentNode *AgentList::getFirst()
+{
+    return this->agentNode;
 }
 
 

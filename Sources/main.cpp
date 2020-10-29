@@ -5,11 +5,6 @@
 #include <QPixmap>
 #include <QtDebug>
 
-#ifdef _WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);

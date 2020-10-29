@@ -241,6 +241,11 @@
         </attribute>
         <column>
          <property name="text">
+          <string>No. Empleado</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Nombre</string>
          </property>
         </column>
@@ -251,7 +256,27 @@
         </column>
         <column>
          <property name="text">
-          <string>Acciones</string>
+          <string>Extension</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Horario</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Horas Extra</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Ver Clientes</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Eliminar</string>
          </property>
         </column>
        </widget>

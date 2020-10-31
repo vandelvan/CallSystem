@@ -33,9 +33,9 @@ void CallSystemMenu::fillAgentTable()
     //si la lista esta vacia no hace nada
     if(agentList->isEmpty())
         return;
-    AgentNode* aux(this->agentList->getFirst()->getNextAgent());
+    AgentNode* aux(this->agentList->getFirst());
     //Recorremos la lista
-    while(aux != this->agentList->getFirst()){
+    while(aux != this->agentList->getFirst()->getPrevAgent()){
         //convertimos sus datos a Qstring para ponerlos en la tabla
         QString employeeNum = QString::number(aux->getAgent().getEmployeeNum());
         QString name = QString::fromStdString(aux->getAgent().getName());

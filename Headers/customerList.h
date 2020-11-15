@@ -6,10 +6,12 @@
 
 #include "customerNode.h"
 #include "customer.h"
+#include "errorMsg.h"
 
 class CustomerList{
     private:
         CustomerNode* customerNode;
+        ErrorMsg errorMsg;
     public:
         CustomerList();
         CustomerList(CustomerNode*);

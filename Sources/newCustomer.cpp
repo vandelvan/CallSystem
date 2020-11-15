@@ -27,6 +27,15 @@ CustomerList* NewCustomer::getCustomerList()
     return this->customerList;
 }
 
+void NewCustomer::clearFields()
+{
+    QDateTime current = QDateTime::currentDateTime();
+    const QTime emptyDuration(0,0,0,0);
+    ui->customerName->setText("");
+    ui->callDate->setDateTime(current);
+    ui->callDuration->setTime(emptyDuration);
+}
+
 void NewCustomer::on_buttonBox_accepted()
 {
     Customer newCustomer;
@@ -44,8 +53,11 @@ void NewCustomer::on_buttonBox_accepted()
     newCustomer.setDuration(duration);
     pos = customerList->getCustomerNode(newCustomer);
     if(pos != nullptr){
-        throw "Ya existe";
+        errorMsg.setMessage("Cliente previamente registrado!");
+        errorMsg.exec();
         return;
     }
     customerList->insertOrdered(newCustomer);
+    //Se limpian los campos
+    clearFields();
 }

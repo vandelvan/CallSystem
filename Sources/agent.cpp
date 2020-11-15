@@ -2,11 +2,13 @@
 
 using namespace std;
 
-Agent::Agent() {}
+Agent::Agent() {
+    this->customers = new CustomerList;
+}
 
 Agent::Agent(const Agent& a) : employeeNum(a.employeeNum), name(a.name), field(a.field), extention(a.extention), hourStart(a.hourStart), hourFinish(a.hourFinish), extraHours(a.extraHours), customers(a.customers){}
 
-Agent::Agent(const int employeeNum, const string& name, const string& field, const int extention, const Duration hourStart, const Duration hourFinish, const Duration extraHours, const CustomerList& customers)
+Agent::Agent(const int employeeNum, const string& name, const string& field, const int extention, const Duration hourStart, const Duration hourFinish, const Duration extraHours, CustomerList* customers)
 {
     this->employeeNum = employeeNum;
     this->name = name;
@@ -60,7 +62,7 @@ Duration Agent::getExtraHours() const
     return this->extraHours;
 }
 
-CustomerList Agent::getCustomers() const
+CustomerList* Agent::getCustomers() const
 {
     return this->customers;
 }
@@ -100,7 +102,7 @@ void Agent::setExtraHours(const Duration & extraHours)
     this->extraHours = extraHours;
 }
 
-void Agent::setCustomers(const CustomerList & customers)
+void Agent::setCustomers(CustomerList* customers)
 {
     this->customers = customers;
 }

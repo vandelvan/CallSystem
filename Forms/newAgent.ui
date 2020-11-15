@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>587</height>
    </rect>
   </property>
   <property name="palette">
@@ -132,7 +132,43 @@
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="15" column="0">
+    <widget class="QLabel" name="label_8">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Horas Extra</string>
+     </property>
+    </widget>
+   </item>
    <item row="6" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Especialidad del Agente</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Numero de Empleado</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -145,8 +181,8 @@
      </property>
     </spacer>
    </item>
-   <item row="0" column="0">
-    <spacer name="verticalSpacer_2">
+   <item row="11" column="0">
+    <spacer name="verticalSpacer_5">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
@@ -157,48 +193,34 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="16" column="0">
+    <widget class="QTimeEdit" name="extraHours">
+     <property name="displayFormat">
+      <string>hh:mm</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Numero de Extension</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QLabel" name="label">
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Nombre del Agente</string>
+    <widget class="QSpinBox" name="employeeNum">
+     <property name="maximum">
+      <number>999999999</number>
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLineEdit" name="agentName"/>
-   </item>
-   <item row="3" column="0">
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="font">
-      <font>
-       <pointsize>20</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Especialidad del Agente</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
+   <item row="21" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="locale">
       <locale language="Spanish" country="Mexico"/>
@@ -214,7 +236,85 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0">
+   <item row="14" column="0">
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="12" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Horario</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label">
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Nombre del Agente</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="1" column="1">
+       <widget class="QTimeEdit" name="finishHour"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Hora inicio</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QTimeEdit" name="startHour"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Hora Fin</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLineEdit" name="agentName"/>
+   </item>
+   <item row="10" column="0">
+    <widget class="QSpinBox" name="extNum"/>
+   </item>
+   <item row="7" column="0">
     <widget class="QComboBox" name="agentField">
      <item>
       <property name="text">
@@ -247,6 +347,45 @@
       </property>
      </item>
     </widget>
+   </item>
+   <item row="2" column="0">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="0">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="17" column="0">
+    <spacer name="verticalSpacer_6">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

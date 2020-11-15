@@ -9,7 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += Sources/main.cpp \
+    Sources/confirmDeleteAgent.cpp \
     Sources/confirmDeleteAll.cpp \
+    Sources/confirmDeleteAllAgents.cpp \
     Sources/editDuration.cpp \
     Sources/start.cpp \
     Sources/agent.cpp \
@@ -24,13 +26,17 @@ SOURCES += Sources/main.cpp \
     Sources/duration.cpp \
     Sources/newAgent.cpp \
     Sources/newCustomer.cpp \
-    Sources/confirmDelete.cpp
+    Sources/confirmDelete.cpp \
+    Sources/searchAgent.cpp \
+    Sources/errorMsg.cpp
 
 HEADERS += Headers/agent.h \
     Headers/agentList.h \
     Headers/agentNode.h \
     Headers/callSystemMenu.h \
+    Headers/confirmDeleteAgent.h \
     Headers/confirmDeleteAll.h \
+    Headers/confirmDeleteAllAgents.h \
     Headers/customerUi.h \
     Headers/customer.h \
     Headers/customerList.h \
@@ -41,17 +47,23 @@ HEADERS += Headers/agent.h \
     Headers/start.h \
     Headers/newAgent.h \
     Headers/newCustomer.h \
-    Headers/confirmDelete.h
+    Headers/confirmDelete.h \
+    Headers/searchAgent.h \
+    Headers/errorMsg.h
 
 FORMS += \
+    Forms/confirmDeleteAgent.ui \
     Forms/confirmDeleteAll.ui \
+    Forms/confirmDeleteAllAgents.ui \
     Forms/editDuration.ui \
     Forms/start.ui \
     Forms/callSystemMenu.ui \
     Forms/customerUi.ui \
     Forms/newAgent.ui \
     Forms/newCustomer.ui \
-    Forms/confirmDelete.ui
+    Forms/confirmDelete.ui \
+    Forms/searchAgent.ui \
+    Forms/errorMsg.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

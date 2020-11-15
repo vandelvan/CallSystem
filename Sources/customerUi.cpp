@@ -5,7 +5,7 @@
 using namespace std;
 
 CustomerUi::CustomerUi(QWidget *parent, CustomerList* cl) :
-    QMainWindow(parent),
+    QDialog(parent),
     ui(new Ui::CustomerUi),
     customerList(cl)
 {
@@ -13,11 +13,29 @@ CustomerUi::CustomerUi(QWidget *parent, CustomerList* cl) :
     //Ajusta las columnas
     for(int i = 0; i < 5; i++)
         ui->customerTable->setColumnWidth(i, this->width()/5);
+    this->fillCustomerTable();
 }
 
 CustomerUi::~CustomerUi()
 {
     delete ui;
+}
+
+void CustomerUi::setAgentNameAndField(string name, string field)
+{
+    ui->attendedBy->setText(QString::fromStdString(name));
+    ui->attendedField->setText(QString::fromStdString(field));
+}
+
+void CustomerUi::setCustomerList(CustomerList* cl)
+{
+    this->customerList = cl;
+    this->fillCustomerTable();
+}
+
+CustomerList* CustomerUi::getCustomerList()
+{
+    return this->customerList;
 }
 
 void CustomerUi::on_addCustomer_clicked()
@@ -133,4 +151,9 @@ void CustomerUi::editCustomer(const int row)
     this->customerList->getCustomerNode(toEdit)->setCustomer(this->editDuration.getCustomer());
     //Se llena la tabla
     this->fillCustomerTable();
+}
+
+void CustomerUi::on_back_clicked()
+{
+    this->close();
 }

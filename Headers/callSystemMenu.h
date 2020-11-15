@@ -7,6 +7,9 @@
 //GUIs
 #include "newAgent.h"
 #include "customerUi.h"
+#include "confirmDeleteAgent.h"
+#include "confirmDeleteAllAgents.h"
+#include "searchAgent.h"
 
 namespace Ui {
 class CallSystemMenu;
@@ -23,7 +26,11 @@ public:
 private slots:
     void on_addAgent_clicked();
 
-    void on_pushButton_clicked();
+    void on_deleteList_clicked();
+
+    void on_agentTable_cellClicked(int row, int column);
+
+    void on_searchAgent_clicked();
 
 private:
     Ui::CallSystemMenu *ui;
@@ -31,9 +38,14 @@ private:
     //GUIs
     NewAgent newAgent;
     CustomerUi customerUi;
+    ConfirmDeleteAgent confirmDeleteAgent;
+    ConfirmDeleteAllAgents confirmDeleteAllAgents;
+    SearchAgent searchAgent;
 
     //Funcion para llenar tabla
     void fillAgentTable();
+    void editAgent(const int);
+    void deleteAgent(const int);
 };
 
 #endif // CALLSYSTEMMENU_H

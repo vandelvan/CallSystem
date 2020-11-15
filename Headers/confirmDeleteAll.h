@@ -17,7 +17,6 @@ public:
     ~ConfirmDeleteAll();
     void setCustomerList(CustomerList*);
     CustomerList* getCustomerList();
-    void setCustomer(Customer);
 
 private slots:
     void on_buttonBox_accepted();
@@ -25,7 +24,6 @@ private slots:
 private:
     Ui::ConfirmDeleteAll *ui;
     CustomerList* customerList;
-    CustomerNode* toDelete;
 };
 
 #endif // CONFIRMDELETEALL_H

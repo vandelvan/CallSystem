@@ -33,11 +33,17 @@ CustomerNode* CustomerList::getAnchor()
 
 void CustomerList::insertCustomer(CustomerNode * p, const Customer & c)
 {
-    if(p != nullptr and !isValidPos(p))
+    if(p != nullptr and !isValidPos(p)){
+        errorMsg.setMessage("Error al insertar");
+        errorMsg.exec();
         return;
+    }
     CustomerNode* aux(new CustomerNode(c));
-    if(aux == nullptr)
+    if(aux == nullptr){
+        errorMsg.setMessage("Error al insertar");
+        errorMsg.exec();
         return;
+    }
     if(p == nullptr){
         aux->setCustomerNode(this->customerNode);
         this->customerNode = aux;
@@ -77,8 +83,11 @@ CustomerNode* CustomerList::getPrevCustomer(CustomerNode * c)
 
 void CustomerList::removeCustomer(CustomerNode * c)
 {
-    if(!isValidPos(c))
+    if(!isValidPos(c)){
+        errorMsg.setMessage("Error al eliminar");
+        errorMsg.exec();
         return;
+    }
 
     if(c == this->customerNode)
         this->customerNode = c->getNextCustomer();

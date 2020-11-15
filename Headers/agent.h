@@ -16,11 +16,11 @@ class Agent{
         Duration hourStart;
         Duration hourFinish;
         Duration extraHours;
-        CustomerList customers;
+        CustomerList* customers;
     public:
         Agent();
         Agent(const Agent&);
-        Agent(const int, const std::string&, const std::string&, const int, const Duration, const Duration, const Duration, const CustomerList&);
+        Agent(const int, const std::string&, const std::string&, const int, const Duration, const Duration, const Duration, CustomerList*);
         ~Agent();
 
         int getEmployeeNum() const;
@@ -31,7 +31,7 @@ class Agent{
         Duration getHourFinish() const;
         std::string getHours() const;
         Duration getExtraHours() const;
-        CustomerList getCustomers() const;
+        CustomerList* getCustomers() const;
         void setEmployeeNum(const int&);
         void setName(const std::string&);
         void setField(const std::string&);
@@ -39,7 +39,7 @@ class Agent{
         void setHourStart(const Duration&);
         void setHourFinish(const Duration&);
         void setExtraHours(const Duration&);
-        void setCustomers(const CustomerList&);
+        void setCustomers(CustomerList*);
 
         Agent& operator = (const Agent&);
 

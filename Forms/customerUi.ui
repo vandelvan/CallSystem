@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CustomerUi</class>
- <widget class="QMainWindow" name="CustomerUi">
+ <widget class="QDialog" name="CustomerUi">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -129,186 +129,201 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Clientes</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="6" column="1" alignment="Qt::AlignRight">
-       <widget class="QPushButton" name="deleteList">
-        <property name="text">
-         <string>Eliminar Lista 🗑️</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="4" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item alignment="Qt::AlignLeft">
-         <widget class="QPushButton" name="addCustomer">
-          <property name="text">
-           <string>Agregar Cliente ➕</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignRight">
-         <widget class="QPushButton" name="importList">
-          <property name="text">
-           <string>Importar Lista 📥</string>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignRight">
-         <widget class="QPushButton" name="exportList">
-          <property name="text">
-           <string>Eportar Lista 📤</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="3">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="5" column="1">
-       <widget class="QTableWidget" name="customerTable">
-        <property name="sizeAdjustPolicy">
-         <enum>QAbstractScrollArea::AdjustToContents</enum>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="sortingEnabled">
-         <bool>false</bool>
-        </property>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Nombre</string>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QMenuBar" name="menubar"/>
+   </item>
+   <item row="1" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>40</pointsize>
+          </font>
          </property>
-        </column>
-        <column>
          <property name="text">
-          <string>Hora de Atencion</string>
+          <string>Administración de Clientes</string>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Duracion de llamada</string>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Editar</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
          </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Eliminar</string>
+        </spacer>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-        </column>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <pointsize>40</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Administración de Clientes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_2">
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item alignment="Qt::AlignLeft">
+          <widget class="QPushButton" name="addCustomer">
+           <property name="text">
+            <string>Agregar Cliente ➕</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignRight">
+          <widget class="QPushButton" name="importList">
+           <property name="text">
+            <string>Importar Lista 📥</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignRight">
+          <widget class="QPushButton" name="exportList">
+           <property name="text">
+            <string>Eportar Lista 📤</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="1">
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Atendidos Por:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Especialidad:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="attendedBy">
+           <property name="text">
+            <string>Jose Ivan Orozco Torrez</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="attendedField">
+           <property name="text">
+            <string>Linux</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="5" column="1">
+        <widget class="QTableWidget" name="customerTable">
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="sortingEnabled">
+          <bool>false</bool>
+         </property>
+         <attribute name="horizontalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
+         <column>
           <property name="text">
-           <string>Atendidos Por:</string>
+           <string>Nombre</string>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_3">
+         </column>
+         <column>
           <property name="text">
-           <string>Especialidad:</string>
+           <string>Hora de Atencion</string>
           </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="attendedBy">
+         </column>
+         <column>
           <property name="text">
-           <string>Jose Ivan Orozco Torrez</string>
+           <string>Duracion de llamada</string>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="attendedField">
+         </column>
+         <column>
           <property name="text">
-           <string>Linux</string>
+           <string>Editar</string>
           </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
+         </column>
+         <column>
+          <property name="text">
+           <string>Eliminar</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item alignment="Qt::AlignLeft">
+          <widget class="QPushButton" name="back">
+           <property name="text">
+            <string>Volver ⬅️</string>
+           </property>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignRight">
+          <widget class="QPushButton" name="deleteList">
+           <property name="text">
+            <string>Eliminar Lista 🗑️</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+  <widget class="QStatusBar" name="statusbar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>3</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

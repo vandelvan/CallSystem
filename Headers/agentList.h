@@ -6,10 +6,12 @@
 
 #include "agentNode.h"
 #include "agent.h"
+#include "errorMsg.h"
 
 class AgentList{
     private:
         AgentNode* agentNode;
+        ErrorMsg errorMsg;
 
 
         bool isValidPos(AgentNode*);

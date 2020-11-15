@@ -38,8 +38,11 @@ bool AgentList::isEmpty()
 
 void AgentList::insertAgent(AgentNode * p, const Agent & a)
 {
-    if(p != nullptr and !isValidPos(p))
+    if(p != nullptr and !isValidPos(p)){
+        errorMsg.setMessage("Error al insertar");
+        errorMsg.exec();
         return;
+    }
     if(p == nullptr){
         p = this->agentNode;
     }
@@ -69,8 +72,11 @@ AgentNode* AgentList::getNextAgent(AgentNode * a)
 
 void AgentList::removeAgent(AgentNode * a)
 {
-    if(!isValidPos(a))
+    if(!isValidPos(a)){
+        errorMsg.setMessage("Error al eliminar agente");
+        errorMsg.exec();
         return;
+    }
     a->getPrevAgent()->setNextAgentNode(a->getNextAgent());
     a->getNextAgent()->setPrevAgentNode(a->getPrevAgent());
 
@@ -130,8 +136,11 @@ void AgentList::copyAll(const AgentList& a)
     while(aux != a.agentNode)
     {
         newNode = new AgentNode(aux->getAgent());
-        if(newNode == nullptr)
+        if(newNode == nullptr){
+            errorMsg.setMessage("Error al copiar lista");
+            errorMsg.exec();
             return;
+        }
         newNode->setPrevAgentNode(agentNode->getPrevAgent());
         newNode->setNextAgentNode(agentNode);
 

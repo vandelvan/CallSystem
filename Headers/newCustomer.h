@@ -5,6 +5,7 @@
 #include <iostream>
 #include "customerList.h"
 #include "customer.h"
+#include "errorMsg.h"
 
 namespace Ui {
 class NewCustomer;
@@ -26,6 +27,9 @@ private slots:
 private:
     Ui::NewCustomer *ui;
     CustomerList* customerList;
+    ErrorMsg errorMsg;
+
+    void clearFields();
 };
 
 #endif // NEWCUSTOMER_H

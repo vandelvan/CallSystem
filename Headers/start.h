@@ -2,7 +2,7 @@
 #define START_H
 
 #include <QMainWindow>
-#include "customerUi.h"
+#include "callSystemMenu.h"
 
 namespace Ui {
 class Start;
@@ -23,7 +23,7 @@ private slots:
 
 private:
     Ui::Start *ui;
-    CustomerUi menu;
+    CallSystemMenu menu;
 };
 
 #endif // START_H

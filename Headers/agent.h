@@ -25,6 +25,7 @@ class Agent{
 
         int getEmployeeNum() const;
         std::string getName() const;
+        std::string getNameLower() const;
         std::string getField() const;
         int getExtention() const;
         Duration getHourStart() const;

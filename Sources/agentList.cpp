@@ -151,6 +151,96 @@ void AgentList::copyAll(const AgentList& a)
     }
 }
 
+void AgentList::swapPtr(AgentNode* a, AgentNode* b)
+{
+    if(a != b)
+    {
+        Agent* aux(a->getAgentPtr());
+        a->setAgentPtr(b->getAgentPtr());
+        b->setAgentPtr(aux);
+    }
+}
+
+void AgentList::orderByName()
+{
+    orderByName(getFirst(), getLast());
+}
+
+void AgentList::orderByName(AgentNode* left, AgentNode* right)
+{
+    if(left == right)
+        return;
+    if(left->getNextAgent() == right){   //Si solo son 2 nodos en la lista
+        if(left->getAgent().getNameLower() > right->getAgent().getNameLower())    //compara sus nombres
+            swapPtr(left, right);   //si el primero es mayor al ultimo los intercambia
+        return;
+    }
+
+    AgentNode* i(left);
+    AgentNode* j(right);
+
+    while (i != j) {
+        //mientras i sea menor al pivote derecho se itera i
+        while (i != j and i->getAgent().getNameLower() <= right->getAgent().getNameLower()) {
+            i = i->getNextAgent();
+        }
+        //mientras j sea mayor al pivote derecho se itera j
+        while (i != j and j->getAgent().getNameLower() >= right->getAgent().getNameLower()) {
+            j = j->getPrevAgent();
+        }
+        //intercambio cuando i es mayor al pivote derecho y j menor
+        swapPtr(i,j);
+    }
+
+    swapPtr(i, right);
+
+    //se comienza a acortar la seccion a ordenar recursivamente
+    if(i != left)
+        orderByName(left, i->getPrevAgent());
+    if(i != right)
+        orderByName(i->getNextAgent(), right);
+}
+
+void AgentList::orderByField()
+{
+    orderByField(getFirst(), getLast());
+}
+
+void AgentList::orderByField(AgentNode* left, AgentNode* right)
+{
+    if(left == right)
+        return;
+    if(left->getNextAgent() == right){   //Si solo son 2 nodos en la lista
+        if(left->getAgent().getField() > right->getAgent().getField())    //compara sus nombres
+            swapPtr(left, right);   //si el primero es mayor al ultimo los intercambia
+        return;
+    }
+
+    AgentNode* i(left);
+    AgentNode* j(right);
+
+    while (i != j) {
+        //mientras i sea menor al pivote derecho se itera i
+        while (i != j and i->getAgent().getField() <= right->getAgent().getField()) {
+            i = i->getNextAgent();
+        }
+        //mientras j sea mayor al pivote derecho se itera j
+        while (i != j and j->getAgent().getField() >= right->getAgent().getField()) {
+            j = j->getPrevAgent();
+        }
+        //intercambio cuando i es mayor al pivote derecho y j menor
+        swapPtr(i,j);
+    }
+
+    swapPtr(i, right);
+
+    //se comienza a acortar la seccion a ordenar recursivamente
+    if(i != left)
+        orderByField(left, i->getPrevAgent());
+    if(i != right)
+        orderByField(i->getNextAgent(), right);
+}
+
 AgentList& AgentList::operator=(const AgentList & a)
 {
     deleteAll();

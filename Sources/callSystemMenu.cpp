@@ -1,6 +1,7 @@
 #include "Headers/callSystemMenu.h"
 #include "ui_callSystemMenu.h"
 
+
 using namespace std;
 
 CallSystemMenu::CallSystemMenu(QWidget *parent, AgentList* al) :
@@ -12,6 +13,22 @@ CallSystemMenu::CallSystemMenu(QWidget *parent, AgentList* al) :
     //Ajusta las columnas
     for(int i = 0; i < 9; i++)
         ui->agentTable->setColumnWidth(i, this->width()/9);
+    //Listener para cuando cliquea la cabecera de la columna y se reordene la lista
+    auto header = ui->agentTable->horizontalHeader();
+    connect(header, &QHeaderView::sectionClicked, [this](int headerCol){
+        switch (headerCol) {
+            case 1: //columna de nombre cliqueada
+                agentList->orderByName();   //ordena por nombre
+                fillAgentTable();   //actualiza la tabla
+                break;
+            case 2: //columna de especialidad cliqueada
+                agentList->orderByField();  //ordena por especialidad
+                fillAgentTable();   //actualiza la tabla
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 CallSystemMenu::~CallSystemMenu()

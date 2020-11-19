@@ -32,6 +32,17 @@ string Agent::getName() const
     return this->name;
 }
 
+string Agent::getNameLower() const
+{
+    string auxName = "";
+    //long unsigned int para evitar advertencias del compilador por el tipo de dato que devuelve length()
+    for(long unsigned int i = 0; i < name.length(); i++)
+    {
+        auxName += tolower(name[i]);
+    }
+    return auxName;
+}
+
 string Agent::getField() const
 {
     return this->field;

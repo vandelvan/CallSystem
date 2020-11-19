@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include "customerNode.h"
 #include "customer.h"
@@ -28,8 +29,8 @@ class CustomerList{
         CustomerNode* getPrevCustomer(CustomerNode*);
         void setCustomer(const Customer&);
         void setCustomerNode(CustomerNode*);
-        CustomerList exportList() const;
-        bool importList(const CustomerList&);
+        void importList(const std::string&);
+        void exportList(const std::string&);
 
         CustomerList& operator = (const CustomerList&);
 };

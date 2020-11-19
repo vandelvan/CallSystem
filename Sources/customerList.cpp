@@ -81,6 +81,34 @@ CustomerNode* CustomerList::getPrevCustomer(CustomerNode * c)
     return aux;
 }
 
+void CustomerList::importList(const string & fileName)
+{
+    ifstream file;
+    file.open(fileName);
+}
+
+void CustomerList::exportList(const string & fileName)
+{
+    ofstream file;
+
+    file.open(fileName, file.trunc);
+
+    if(file.is_open())
+    {
+        errorMsg.setMessage("Error al abrir "+fileName+"!");
+        return;
+    }
+
+    CustomerNode* aux(customerNode);
+
+    while (aux != nullptr) {
+        file << aux->getCustomer() << endl;
+        aux = aux->getNextCustomer();
+    }
+
+    file.close();
+}
+
 void CustomerList::removeCustomer(CustomerNode * c)
 {
     if(!isValidPos(c)){

@@ -1,9 +1,8 @@
-#include "Headers/start.h"
+#include "Headers/callSystemMenu.h"
 
 #include <QApplication>
 #include <QSplashScreen>
 #include <QPixmap>
-#include <QtDebug>
 
 int main(int argc, char *argv[])
 {
@@ -12,11 +11,9 @@ int main(int argc, char *argv[])
     QPixmap splashimg(":/Assets/Assets/SplashScreen.png");
     QSplashScreen splash(splashimg, Qt::WindowStaysOnTopHint);
     splash.show();
-    splash.showMessage("Cargando Sistema");
-    app.processEvents();
-    //Entra al inicio de sesion
-    Start start;
-    start.show();
-    splash.finish(&start);
+    //Entra al menu/control de agentes
+    CallSystemMenu callSystemMeu;
+    splash.finish(&callSystemMeu);
+    callSystemMeu.show();
     return app.exec();
 }

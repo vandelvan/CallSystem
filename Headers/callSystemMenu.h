@@ -32,6 +32,10 @@ private slots:
 
     void on_searchAgent_clicked();
 
+    void on_importList_clicked();
+
+    void on_exportList_clicked();
+
 private:
     Ui::CallSystemMenu *ui;
     AgentList* agentList;

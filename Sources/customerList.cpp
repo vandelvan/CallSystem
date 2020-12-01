@@ -34,13 +34,13 @@ CustomerNode* CustomerList::getAnchor()
 void CustomerList::insertCustomer(CustomerNode * p, const Customer & c)
 {
     if(p != nullptr and !isValidPos(p)){
-        errorMsg.setMessage("Error al insertar");
+        errorMsg.setText("Error al insertar cliente");
         errorMsg.exec();
         return;
     }
     CustomerNode* aux(new CustomerNode(c));
     if(aux == nullptr){
-        errorMsg.setMessage("Error al insertar");
+        errorMsg.setText("Error al insertar cliente");
         errorMsg.exec();
         return;
     }
@@ -81,38 +81,98 @@ CustomerNode* CustomerList::getPrevCustomer(CustomerNode * c)
     return aux;
 }
 
-void CustomerList::importList(const string & fileName)
+QJsonArray CustomerList::listToJson()
 {
-    ifstream file;
-    file.open(fileName);
+    QJsonArray customersJson;
+    CustomerNode* aux(customerNode);
+    while (aux != nullptr) {
+        //Objeto para almacenar datos de clientes
+        QJsonObject customerData;
+        Customer c = aux->getCustomer();
+        customerData["customerName"] = QString::fromStdString(c.getName());
+        customerData["customerDate"] = QString::fromStdString(c.getDate().getAsString());
+        customerData["customerDuration"] = QString::fromStdString(c.getDuration().getAsString());
+        //Se agrega el cliente al arreglo
+        customersJson.append(customerData);
+        //se itera la lista
+        aux = aux->getNextCustomer();
+    }
+    return customersJson;
+}
+
+void CustomerList::jsonToList(const QJsonArray jsonArray)
+{
+    //Se itera a traves del documento
+    foreach (const QJsonValue & value, jsonArray) {
+        QJsonObject obj = value.toObject();
+        Customer newCustomer;
+        newCustomer.setName(obj["customerName"].toString().toStdString());
+        newCustomer.setDate(Date(obj["customerDate"].toString().toStdString()));
+        newCustomer.setDuration(Duration(obj["customerDuration"].toString().toStdString()));
+        //solo inserta al cliente si no existe ya
+        if(this->getCustomerNode(newCustomer) == nullptr)
+            insertOrdered(newCustomer);
+    }
 }
 
 void CustomerList::exportList(const string & fileName)
 {
-    ofstream file;
+    QFile file;
+    file.setFileName(QString::fromStdString(fileName));
+    if(!file.open(QIODevice::WriteOnly)){
+        errorMsg.setText(QString::fromStdString("Error al guardar "+ fileName+ "!"));
+        errorMsg.exec();
+        return;
+    }
+    //Arreglo para almacenar a todos los clientes
+    //se llena por medio de la funcion que regresa la lista en un arreglo de json
+    QJsonArray customersJson = listToJson();
+    //se lee el objeto en un byteArray
+    QByteArray byteArray;
+    byteArray = QJsonDocument(customersJson).toJson();
+    //Se guarda en el archivo
+    file.write(byteArray);
+    file.close();
+    errorMsg.setText(QString::fromStdString("Exportado con exito en: " + fileName));
+    errorMsg.exec();
+}
 
-    file.open(fileName, file.trunc);
+void CustomerList::importList(const string & fileName)
+{
+    QFile file(QString::fromStdString(fileName));
 
-    if(file.is_open())
-    {
-        errorMsg.setMessage("Error al abrir "+fileName+"!");
+    if(!file.open(QIODevice::ReadOnly)){    //Si no se puede abre
+        errorMsg.setText(QString::fromStdString("Error al abrir "+ fileName + "!"));
+        errorMsg.exec();
         return;
     }
 
-    CustomerNode* aux(customerNode);
+    QByteArray byteArray;
+    byteArray = file.readAll(); //toma el contenido del json
+    file.close();   //cierra el archivo
 
-    while (aux != nullptr) {
-        file << aux->getCustomer() << endl;
-        aux = aux->getNextCustomer();
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc;
+    //crea un jsonDocument con el texto obtenido
+    jsonDoc = QJsonDocument::fromJson(byteArray, &parseError);
+    //Si existe algun error al leer el json
+    if(parseError.error != QJsonParseError::NoError){
+        errorMsg.setText(QString::fromStdString("Error al leer "+ fileName + "!"));
+        errorMsg.exec();
+        return;
     }
-
-    file.close();
+    //Pasa el documento a jsonArray para su manipulacion
+    QJsonArray jsonArray;
+    jsonArray = jsonDoc.array();
+    jsonToList(jsonArray);
+    errorMsg.setText("Importado con exito!");
+    errorMsg.exec();
 }
 
 void CustomerList::removeCustomer(CustomerNode * c)
 {
     if(!isValidPos(c)){
-        errorMsg.setMessage("Error al eliminar");
+        errorMsg.setText("Error al eliminar");
         errorMsg.exec();
         return;
     }

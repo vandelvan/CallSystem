@@ -53,7 +53,7 @@ void NewCustomer::on_buttonBox_accepted()
     newCustomer.setDuration(duration);
     pos = customerList->getCustomerNode(newCustomer);
     if(pos != nullptr){
-        errorMsg.setMessage("Cliente previamente registrado!");
+        errorMsg.setText("Cliente previamente registrado!");
         errorMsg.exec();
         return;
     }

@@ -83,20 +83,3 @@ bool Customer::operator>=(const Customer & c) const
 {
     return this->date >= c.date;
 }
-
-ostream& operator << (ostream& os, const Customer& c)
-{
-    os << c.getName() << endl;
-    os << c.getDate().getAsString() << endl;
-    os << c.getDuration().getAsString();
-    return os;
-}
-
-istream& operator >> (istream& is, Customer& c)
-{
-    getline(is, c.name);
-    is >> c.date;
-    is >> c.duration;
-
-    return is;
-}

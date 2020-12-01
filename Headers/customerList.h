@@ -3,16 +3,19 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <QMessageBox>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "customerNode.h"
 #include "customer.h"
-#include "errorMsg.h"
 
 class CustomerList{
     private:
         CustomerNode* customerNode;
-        ErrorMsg errorMsg;
+        QMessageBox errorMsg;
     public:
         CustomerList();
         CustomerList(CustomerNode*);
@@ -29,6 +32,8 @@ class CustomerList{
         CustomerNode* getPrevCustomer(CustomerNode*);
         void setCustomer(const Customer&);
         void setCustomerNode(CustomerNode*);
+        QJsonArray listToJson();
+        void jsonToList(const QJsonArray);
         void importList(const std::string&);
         void exportList(const std::string&);
 

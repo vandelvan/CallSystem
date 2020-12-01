@@ -3,16 +3,19 @@
 
 #include <iostream>
 #include <string>
-#include <fstream>
+#include <QMessageBox>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "agentNode.h"
 #include "agent.h"
-#include "errorMsg.h"
 
 class AgentList{
     private:
         AgentNode* agentNode;
-        ErrorMsg errorMsg;
+        QMessageBox errorMsg;
 
 
         bool isValidPos(AgentNode*);
@@ -38,8 +41,8 @@ class AgentList{
         Agent retreive(AgentNode*);
         void orderByName();
         void orderByField();
-        AgentList exportList() const;
-        bool importList(const AgentList&);
+        void importList(const std::string&);
+        void exportList(const std::string&);
 
         AgentList& operator = (const AgentList&);
 };

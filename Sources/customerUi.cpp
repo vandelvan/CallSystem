@@ -157,3 +157,16 @@ void CustomerUi::on_back_clicked()
 {
     this->close();
 }
+
+void CustomerUi::on_importList_clicked()
+{
+    string fileName = QFileDialog::getOpenFileName(this, tr("Abrir JSON con clientes"), "~/", tr("*.json")).toStdString();
+    this->customerList->importList(fileName);
+    this->fillCustomerTable();
+}
+
+void CustomerUi::on_exportList_clicked()
+{
+    string fileName = QFileDialog::getSaveFileName(this, tr("Guardar JSON con clientes como"), "~/clientes.json", tr("*.json")).toStdString();
+    this->customerList->exportList(fileName);
+}

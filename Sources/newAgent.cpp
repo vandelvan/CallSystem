@@ -72,7 +72,7 @@ void NewAgent::on_buttonBox_accepted()
     //verificamos que aun no exista desde que se registra el numero de empleado a menos que se esté editando
     AgentNode* pos = agentList->getAgentNode(newAgent);
     if(pos != nullptr && !edit){
-        errorMsg.setMessage("Numero de empleado en uso!");
+        errorMsg.setText("Numero de empleado en uso!");
         errorMsg.exec();
         return;
     }

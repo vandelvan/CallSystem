@@ -39,7 +39,7 @@ bool AgentList::isEmpty()
 void AgentList::insertAgent(AgentNode * p, const Agent & a)
 {
     if(p != nullptr and !isValidPos(p)){
-        errorMsg.setMessage("Error al insertar");
+        errorMsg.setText("Error al insertar agente");
         errorMsg.exec();
         return;
     }
@@ -73,7 +73,7 @@ AgentNode* AgentList::getNextAgent(AgentNode * a)
 void AgentList::removeAgent(AgentNode * a)
 {
     if(!isValidPos(a)){
-        errorMsg.setMessage("Error al eliminar agente");
+        errorMsg.setText("Error al eliminar agente");
         errorMsg.exec();
         return;
     }
@@ -137,7 +137,7 @@ void AgentList::copyAll(const AgentList& a)
     {
         newNode = new AgentNode(aux->getAgent());
         if(newNode == nullptr){
-            errorMsg.setMessage("Error al copiar lista");
+            errorMsg.setText("Error al copiar lista");
             errorMsg.exec();
             return;
         }
@@ -204,6 +204,92 @@ void AgentList::orderByName(AgentNode* left, AgentNode* right)
 void AgentList::orderByField()
 {
     orderByField(getFirst(), getLast());
+}
+
+void AgentList::exportList(const string & fileName)
+{
+    QFile file;
+    file.setFileName(QString::fromStdString(fileName));
+    if(!file.open(QIODevice::WriteOnly)){
+        errorMsg.setText(QString::fromStdString("Error al guardar "+ fileName+ "!"));
+        errorMsg.exec();
+        return;
+    }
+    AgentNode* aux(agentNode->getNextAgent());
+    //Arreglo para almacenar a todos los clientes
+    QJsonArray agentsJson;
+    while (aux != agentNode) {
+        //Objeto para almacenar datos de clientes
+        QJsonObject agentData;
+        Agent a = aux->getAgent();
+        agentData["agentEmpNum"] = a.getEmployeeNum();
+        agentData["agentName"] = QString::fromStdString(a.getName());
+        agentData["agentField"] = QString::fromStdString(a.getField());
+        agentData["agentExt"] = a.getExtention();
+        agentData["agentStHr"] = QString::fromStdString(a.getHourStart().getAsString());
+        agentData["agentFnHr"] = QString::fromStdString(a.getHourFinish().getAsString());
+        agentData["agentExtra"] = QString::fromStdString(a.getExtraHours().getAsString());
+        agentData["agentCustomers"] = a.getCustomers()->listToJson();
+        //Se agrega el cliente al arreglo
+        agentsJson.append(agentData);
+        //se itera la lista
+        aux = aux->getNextAgent();
+    }
+    //se lee el objeto en un byteArray
+    QByteArray byteArray;
+    byteArray = QJsonDocument(agentsJson).toJson();
+    //Se guarda en el archivo
+    file.write(byteArray);
+    file.close();
+    errorMsg.setText(QString::fromStdString("Exportado con exito en: " + fileName));
+    errorMsg.exec();
+}
+
+void AgentList::importList(const string & fileName)
+{
+    QFile file(QString::fromStdString(fileName));
+
+    if(!file.open(QIODevice::ReadOnly)){    //Si no se puede abre
+        errorMsg.setText(QString::fromStdString("Error al abrir "+ fileName + "!"));
+        errorMsg.exec();
+        return;
+    }
+
+    QByteArray byteArray;
+    byteArray = file.readAll(); //toma el contenido del json
+    file.close();   //cierra el archivo
+
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc;
+    //crea un jsonDocument con el texto obtenido
+    jsonDoc = QJsonDocument::fromJson(byteArray, &parseError);
+    //Si existe algun error al leer el json
+    if(parseError.error != QJsonParseError::NoError){
+        errorMsg.setText(QString::fromStdString("Error al leer "+ fileName + "!"));
+        errorMsg.exec();
+        return;
+    }
+    //Pasa el documento a jsonArray para su manipulacion
+    QJsonArray jsonArray;
+    jsonArray = jsonDoc.array();
+    //Se itera a traves del documento
+    foreach (const QJsonValue & value, jsonArray) {
+        QJsonObject obj = value.toObject();
+        Agent newAgent;
+        newAgent.setEmployeeNum(obj["agentEmpNum"].toInt());
+        newAgent.setName(obj["agentName"].toString().toStdString());
+        newAgent.setField(obj["agentField"].toString().toStdString());
+        newAgent.setExtention(obj["agentExt"].toInt());
+        newAgent.setHourStart(Duration(obj["agentStHr"].toString().toStdString()));
+        newAgent.setHourFinish(Duration(obj["agentFnHr"].toString().toStdString()));
+        newAgent.setExtraHours(Duration(obj["agentExtra"].toString().toStdString()));
+        newAgent.getCustomers()->jsonToList(obj["agentCustomers"].toArray());
+        //solo inserta al agente si no existe ya
+        if(this->getAgentNode(newAgent) == nullptr)
+            insertAgent(getLast(),newAgent);
+    }
+    errorMsg.setText("Importado con exito!");
+    errorMsg.exec();
 }
 
 void AgentList::orderByField(AgentNode* left, AgentNode* right)

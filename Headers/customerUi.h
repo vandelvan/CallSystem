@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <iostream>
+#include <QFileDialog>
+
 //Headers necesarios:
 #include "customerList.h"
 //GUIs
@@ -38,6 +40,10 @@ private slots:
     void on_customerTable_cellClicked(int row, int column);
 
     void on_back_clicked();
+
+    void on_importList_clicked();
+
+    void on_exportList_clicked();
 
 private:
     Ui::CustomerUi *ui;

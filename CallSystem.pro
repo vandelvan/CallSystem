@@ -13,7 +13,6 @@ SOURCES += Sources/main.cpp \
     Sources/confirmDeleteAll.cpp \
     Sources/confirmDeleteAllAgents.cpp \
     Sources/editDuration.cpp \
-    Sources/start.cpp \
     Sources/agent.cpp \
     Sources/agentList.cpp \
     Sources/agentNode.cpp \
@@ -27,8 +26,7 @@ SOURCES += Sources/main.cpp \
     Sources/newAgent.cpp \
     Sources/newCustomer.cpp \
     Sources/confirmDelete.cpp \
-    Sources/searchAgent.cpp \
-    Sources/errorMsg.cpp
+    Sources/searchAgent.cpp
 
 HEADERS += Headers/agent.h \
     Headers/agentList.h \
@@ -44,26 +42,22 @@ HEADERS += Headers/agent.h \
     Headers/date.h \
     Headers/duration.h \
     Headers/editDuration.h \
-    Headers/start.h \
     Headers/newAgent.h \
     Headers/newCustomer.h \
     Headers/confirmDelete.h \
-    Headers/searchAgent.h \
-    Headers/errorMsg.h
+    Headers/searchAgent.h
 
 FORMS += \
     Forms/confirmDeleteAgent.ui \
     Forms/confirmDeleteAll.ui \
     Forms/confirmDeleteAllAgents.ui \
     Forms/editDuration.ui \
-    Forms/start.ui \
     Forms/callSystemMenu.ui \
     Forms/customerUi.ui \
     Forms/newAgent.ui \
     Forms/newCustomer.ui \
     Forms/confirmDelete.ui \
-    Forms/searchAgent.ui \
-    Forms/errorMsg.ui
+    Forms/searchAgent.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

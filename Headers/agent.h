@@ -50,9 +50,6 @@ class Agent{
         bool operator <= (const Agent&) const;
         bool operator > (const Agent&) const;
         bool operator >= (const Agent&) const;
-
-        friend std::ostream& operator << (std::ostream, const Agent&);
-        friend std::istream& operator >> (std::istream&, Agent&);
 };
 
 #endif

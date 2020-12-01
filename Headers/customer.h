@@ -32,9 +32,6 @@ class Customer{
         bool operator <= (const Customer&) const;
         bool operator > (const Customer&) const;
         bool operator >= (const Customer&) const;
-
-        friend std::ostream& operator << (std::ostream, const Customer&);
-        friend std::istream& operator >> (std::istream&, Customer&);
         
 };
 

@@ -180,3 +180,16 @@ void CallSystemMenu::on_searchAgent_clicked()
     //Llena nuevamente la tabla
     this->fillAgentTable();
 }
+
+void CallSystemMenu::on_importList_clicked()
+{
+    string fileName = QFileDialog::getOpenFileName(this, tr("Abrir JSON con agentes"), "~/", tr("*.json")).toStdString();
+    this->agentList->importList(fileName);
+    this->fillAgentTable();
+}
+
+void CallSystemMenu::on_exportList_clicked()
+{
+    string fileName = QFileDialog::getSaveFileName(this, tr("Guardar JSON con agentes como"), "~/agentes.json", tr("*.json")).toStdString();
+    this->agentList->exportList(fileName);
+}

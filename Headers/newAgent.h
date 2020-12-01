@@ -3,9 +3,9 @@
 
 #include <QDialog>
 #include <iostream>
+#include <QMessageBox>
 #include "agentList.h"
 #include "agent.h"
-#include "errorMsg.h"
 
 namespace Ui {
 class NewAgent;
@@ -30,7 +30,7 @@ private slots:
 private:
     Ui::NewAgent *ui;
     AgentList* agentList;
-    ErrorMsg errorMsg;
+    QMessageBox errorMsg;
     Agent toEdit;
     bool edit;
 
